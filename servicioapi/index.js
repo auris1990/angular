@@ -1,13 +1,11 @@
-//console.log("texto prueva")
-// console.log("texto de prueba con nodemon")
-
 const express = require('express'); //Llamada del servicio de express
 const conectarDB = require('./config/db');
+const cors = require('cors');
 
 const aplicacion = express(); //implementando el servicio en la aplicacion
-//const aplicacion1= express();
 
 conectarDB();
+aplicacion.use(cors());
 
 // aplicacion.get('/', (req, res) => {
 //     res.send("hola")
@@ -18,7 +16,7 @@ conectarDB();
 aplicacion.use(express.json());
 
 aplicacion.use('/api/producto', require('./Routes/producto'));
-
+aplicacion.use('/api/formulario', require('./Routes/formulario'));
 
 
 

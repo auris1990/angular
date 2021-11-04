@@ -27,30 +27,30 @@ exports.consultarProductos = async(req, res) => {
     }
 }
 
-exports.actualizarProducto = async(req,res)=>{
-
-    try{
+exports.actualizarProducto = async(req, res) => {
+    try {
         console.log(req.body)
 
-        const{nombre,ubicacio,precio,proveedor}= req.body
-let data_producto=Producto.findById(req.params.id);
-console.log(data_producto)
-if(!data_producto){
-    res.status(404).json({ msg: 'No existe el producto solicitado'})
-}
+        const { nombre, ubicacion, precio, proveedor } = req.body
+        let data_producto = await Producto.findById(req.params.id);
+        console.log(data_producto)
 
-data_producto.nombre=nombre;
-data_producto.ubicacion=ubicacion;
-data_producto.precio=precio;
-data_producto.proveedor=proveedor;
+        if (!data_producto) {
+            res.status(404).json({ msg: 'No existe el producto solicitado' })
+        }
 
-data_producto= await Producto.findOneAndUpdate({_id: req.params.id}, data_producto, { new :true});
-res.json(data_producto);
-    } catch(error){
+        data_producto.nombre = nombre;
+        data_producto.ubicacion = ubicacion;
+        data_producto.precio = precio;
+        data_producto.proveedor = proveedor;
+
+        data_producto = await Producto.findOneAndUpdate({ _id: req.params.id }, data_producto, { new: true });
+        res.json(data_producto);
+    } catch (error) {
 
         console.log(error)
         res.status(500).send("no se puede actualizar")
-    
+
     }
 }
 exports.eliminarProducto = async(req,res)=>{
